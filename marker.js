@@ -144,11 +144,16 @@
 
     // display THREEx.ArMarkerHelper if needed - useful to debug
     var markerHelpers = []
+    var markerToModel = [9507387, 1862001, 9507387, 1862001, 1862001]
+    console.log("test");
     multiMarkerControls.subMarkersControls.forEach(function(subMarkerControls){
         // add an helper to visuable each sub-marker
         var markerHelper = new THREEx.ArMarkerHelper(subMarkerControls)
+
         markerHelpers.push(markerHelper)
-        subMarkerControls.object3d.add( markerHelper.object3d )
+        // subMarkerControls.object3d.add( markerHelper.object3d )
+        console.log(markerHelpers.length-1);
+        addProduct(markerToModel[markerHelpers.length-1], subMarkerControls.object3d);
     })
 
     function markerHelpersToggleVisibility(){
@@ -222,7 +227,7 @@
         pointLight.position.z = 5;
 
 
-        addProduct(1862001, arWorldRoot);
+
 
         onRenderFcts.push(function(delta){
             // mesh.rotation.x += delta * Math.PI
@@ -259,9 +264,9 @@
 
                         object.position.y = 0;
                         object.position.z = 0;
-                        object.scale.x = 5;
-                        object.scale.y = 5;
-                        object.scale.z = 5;
+                        object.scale.x = 0.5;
+                        object.scale.y = 0.5;
+                        object.scale.z = 0.5;
                         scene.add( object );
 
                     }, onProgress, onError );
