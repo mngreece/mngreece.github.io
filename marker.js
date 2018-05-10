@@ -144,8 +144,8 @@
 
     // display THREEx.ArMarkerHelper if needed - useful to debug
     var markerHelpers = []
-    var markerToModel = {"http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt":[9507387, 'default'],
-    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt":[1862001, 'brown-sidetable'],
+    var markerToModel = {"http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt":[1862001, 'brown-sidetable'],
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt":[1862001, 'black-sidetable'],
     "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt":[9507387, 'default'],
     "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterF.patt":[1862001, 'default'],
     "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt":[1862001, 'default']};
