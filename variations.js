@@ -1,4 +1,10 @@
 ;(function(){
+    var markerToModel =
+        [
+            ["9507387", "default"],
+            ["1862001", 'default'],
+            ["1862001", 'brown-sidetable']
+        ];
     //////////////////////////////////////////////////////////////////////////////////
     //		Init
     //////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +95,6 @@
     // create atToolkitContext
     var arToolkitContext = new ARjs.Context(artoolkitProfile.contextParameters)
     // initialize it
-    console.log(arToolkitContext);
     arToolkitContext.init(function onCompleted(){
         // if artoolkit, copy projection matrix to camera
         if( arToolkitContext.parameters.trackingBackend === 'artoolkit' ){
@@ -108,14 +113,29 @@
     //		get multiMarkerFile
     //////////////////////////////////////////////////////////////////////////////
 
-    // if no localStorage.ARjsMultiMarkerFile, then write one with default marker
-    if( localStorage.getItem('ARjsMultiMarkerFile') === null ){
-        THREEx.ArMultiMarkerUtils.storeDefaultMultiMarkerFile(urlOptions.trackingBackend)
+    function getMarkers(trackingBackend) {
+
+        var file = THREEx.ArMultiMarkerUtils.createDefaultMultiMarkerFile(trackingBackend);
+
+        file.subMarkersControls = [];
+
+        markerToModel.forEach(function(m) {
+
+            file.subMarkersControls.push( {
+                    parameters: {
+                        type : 'pattern',
+                        patternUrl : '/models/obj/'+m[0]+'/'+m[1]+'/pattern-marker.patt',
+                    },
+                    poseMatrix: new THREE.Matrix4().makeTranslation(0,0, 0).toArray()
+                }
+            );
+
+        })
+
+        return JSON.stringify(file);
     }
 
-    // get multiMarkerFile from localStorage
-    console.assert( localStorage.getItem('ARjsMultiMarkerFile') !== null )
-    var multiMarkerFile = localStorage.getItem('ARjsMultiMarkerFile')
+    multiMarkerFile = getMarkers(urlOptions.trackingBackend);
 
     //////////////////////////////////////////////////////////////////////////////
     //		Create ArMultiMarkerControls
@@ -148,7 +168,14 @@
         // add an helper to visuable each sub-marker
         var markerHelper = new THREEx.ArMarkerHelper(subMarkerControls)
         markerHelpers.push(markerHelper)
-        subMarkerControls.object3d.add( markerHelper.object3d )
+
+        var url = subMarkerControls.parameters.patternUrl.split('/');
+
+        addProduct(
+            url[(url.length-3)],
+            url[(url.length-2)],
+            subMarkerControls.object3d
+        );
     })
 
     function markerHelpersToggleVisibility(){
@@ -194,11 +221,6 @@
         var averageMatrix = THREEx.ArMultiMarkerControls.computeCenter(multiMarkerFile)
         averageMatrix.decompose(arWorldRoot.position, arWorldRoot.quaternion, arWorldRoot.scale)
         smoothedRoot.add(arWorldRoot)
-        // markerRoot.add(arWorldRoot)
-
-
-        // var screenAsPortal = new THREEx.ScreenAsPortal(multiMarkerFile)
-        // arWorldRoot.add(screenAsPortal.object3d)
 
         var mesh = new THREE.AxisHelper()
         arWorldRoot.add(mesh)
@@ -221,15 +243,12 @@
         pointLight.position.y = 5;
         pointLight.position.z = 5;
 
-
-        addProduct(1862001, arWorldRoot);
-
         onRenderFcts.push(function(delta){
             // mesh.rotation.x += delta * Math.PI
         })
     })()
 
-    function addProduct(productNumber, scene){
+    function addProduct(productNumber, variation, scene){
 
         var onProgress = function ( xhr ) {
 
@@ -247,18 +266,21 @@
         THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
         new THREE.MTLLoader()
-            .setPath( '/models/obj/'+productNumber+'/' )
+            .setPath( '/models/obj/'+productNumber+'/'+variation+'/' )
             .load( productNumber+'.mtl', function ( materials ) {
 
                 materials.preload();
 
                 new THREE.OBJLoader()
                     .setMaterials( materials )
-                    .setPath( '/models/obj/'+productNumber+'/' )
-                    .load( productNumber+'.obj?rev=1', function ( object ) {
+                    .setPath( '/models/obj/'+productNumber+'/'+variation+'/' )
+                    .load( productNumber+'.obj', function ( object ) {
 
                         object.position.y = 0;
                         object.position.z = 0;
+                        object.scale.x = 0.5;
+                        object.scale.y = 0.5;
+                        object.scale.z = 0.5;
                         scene.add( object );
 
                     }, onProgress, onError );
