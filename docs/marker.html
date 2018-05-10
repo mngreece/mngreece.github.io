@@ -4,6 +4,7 @@
 <script src='/ar.js/examples/vendor/three.js/build/three.js'></script>
 <script src='/ar.js/examples/vendor/three.js/examples/js/libs/stats.min.js'></script>
 <!-- jsartookit -->
+<script src='/ar.js/vendor/jsartoolkit5/build/artoolkit.min.js'></script>
 <script src='/ar.js/vendor/jsartoolkit5/js/artoolkit.api.js'></script>
 <!-- aruco -->
 <script src='/ar.js/vendor/js-aruco/src/svd.js'></script>
@@ -112,7 +113,7 @@
         var artoolkitProfile = new ARjs.Profile()
         artoolkitProfile.sourceWebcam()
             .trackingBackend(urlOptions.trackingBackend)
-
+        console.log(artoolkitProfile);
         var arToolkitSource = new ARjs.Source(artoolkitProfile.sourceParameters)
 
         arToolkitSource.init(function onReady(){
@@ -144,6 +145,7 @@
         // create atToolkitContext
         var arToolkitContext = new ARjs.Context(artoolkitProfile.contextParameters)
         // initialize it
+        console.log(arToolkitContext);
         arToolkitContext.init(function onCompleted(){
             // if artoolkit, copy projection matrix to camera
             if( arToolkitContext.parameters.trackingBackend === 'artoolkit' ){
