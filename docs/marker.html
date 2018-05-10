@@ -199,6 +199,11 @@
         })
 
         //////////////////////////////////////////////////////////////////////////////
+        //		meshes
+        //////////////////////////////////////////////////////////////////////////////
+        var meshes = {};
+
+        //////////////////////////////////////////////////////////////////////////////
         //		markerHelpers
         //////////////////////////////////////////////////////////////////////////////
 
@@ -279,17 +284,20 @@
           arWorldRoot.add( pointLight );
           pointLight.position.x = 5;
           pointLight.position.y = 5;
-      pointLight.position.z = 5;
+          pointLight.position.z = 5;
 
 
-          addProduct(1862001, arWorldRoot);
+          loadProduct(1862001, arWorldRoot);
 
           onRenderFcts.push(function(delta){
             // mesh.rotation.x += delta * Math.PI
+            for (var index = 0; index < meshes.length; index++) {
+              console.log(meshes[index]);
+            }
           })
         })()
 
-        function addProduct(productNumber, scene){
+        function loadProduct(productNumber, scene){
 
           var onProgress = function ( xhr ) {
 
@@ -319,6 +327,10 @@
 
                       object.position.y = 0;
                       object.position.z = 0;
+                      object.scale.x = 5;
+                      object.scale.y = 5;
+                      object.scale.z = 5;
+                      //meshes[productNumber] = object;
                       scene.add( object );
 
                     }, onProgress, onError );

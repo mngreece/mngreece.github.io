@@ -259,6 +259,9 @@
 
                         object.position.y = 0;
                         object.position.z = 0;
+                        object.scale.x = 5;
+                        object.scale.y = 5;
+                        object.scale.z = 5;
                         scene.add( object );
 
                     }, onProgress, onError );
