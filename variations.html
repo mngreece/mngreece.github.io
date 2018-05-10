@@ -40,38 +40,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-
-<div style='position: absolute; top: 0px; width:100%; z-index:1';>
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Basin Variations
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-        </div>
-    </div>
-</div>
-<!-- info at the top of page -->
-<div style='position: fixed; bottom: 10px; width:100%; text-align: center;z-index:1';>
-    tracking backend:
-    <a href='javascript:void(0)' onclick='trackingBackendSet("artoolkit")'>artoolkit</a>
-    /
-    <a href='javascript:void(0)' onclick='trackingBackendSet("aruco")'>aruco</a>
-    <br>
-    <a href='javascript:void(0)' onclick='markerHelpersToggleVisibility()'>Marker helpers</a>
-    -
-    <a href='javascript:void(0)' onclick='resetMarkerFile()'>reset area</a>
-</div>
-<!-- display record button -->
-<div style='position: fixed; bottom: 16px; right: 16px; z-index:1';>
-    <style>
-        #recordButton:hover {
-            cursor: pointer;
-        }
-    </style>
-    <img id='recordButton' src="/images/record-start.png" width='64px'  height='64px'>
-</div>
 <script src="variations.js"></script>
 </body>
