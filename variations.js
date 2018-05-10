@@ -190,16 +190,16 @@
     //		init UI
     //////////////////////////////////////////////////////////////////////////////
 
-    document.querySelector('#recordButton').addEventListener('click', function(){
-        urlOptionsUpdate()
-
-        THREEx.ArMultiMarkerUtils.navigateToLearnerPage('learner.html', urlOptions.trackingBackend)
-    })
-
-    window.resetMarkerFile = function(){
-        THREEx.ArMultiMarkerUtils.storeDefaultMultiMarkerFile(urlOptions.trackingBackend)
-        location.reload()
-    }
+    // document.querySelector('#recordButton').addEventListener('click', function(){
+    //     urlOptionsUpdate()
+    //
+    //     THREEx.ArMultiMarkerUtils.navigateToLearnerPage('learner.html', urlOptions.trackingBackend)
+    // })
+    //
+    // window.resetMarkerFile = function(){
+    //     THREEx.ArMultiMarkerUtils.storeDefaultMultiMarkerFile(urlOptions.trackingBackend)
+    //     location.reload()
+    // }
 
 
     function trackingBackendSet(trackingBackend){
