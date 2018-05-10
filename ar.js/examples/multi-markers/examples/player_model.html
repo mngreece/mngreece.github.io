@@ -282,7 +282,7 @@
 pointLight.position.z = 5;
 
 
-		addProduct(1010101, arWorldRoot);
+		addProduct(1862001, arWorldRoot);
 
 		onRenderFcts.push(function(delta){
 			// mesh.rotation.x += delta * Math.PI
@@ -307,18 +307,18 @@ pointLight.position.z = 5;
 		THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
 				new THREE.MTLLoader()
-					.setPath( '/models/obj/1862001/' )
-					.load( '1862001.mtl', function ( materials ) {
+					.setPath( '/models/obj/'+productNumber+'/' )
+					.load( productNumber+'.mtl', function ( materials ) {
 
 						materials.preload();
 
 						new THREE.OBJLoader()
 							.setMaterials( materials )
-							.setPath( '/models/obj/1862001/' )
-							.load( '1862001.obj', function ( object ) {
+							.setPath( '/models/obj/'+productNumber+'/' )
+							.load( productNumber+'.obj?rev=1', function ( object ) {
 
-								object.position.y = 3;
-								object.position.z = 1;
+								object.position.y = 0;
+								object.position.z = 0;
 								scene.add( object );
 
 							}, onProgress, onError );
