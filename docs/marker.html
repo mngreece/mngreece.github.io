@@ -29,6 +29,9 @@
 
 <script src='/ar.js/examples/multi-markers/examples/threex-screenasportal/threex-screenasportal.js'></script>
 <script>THREEx.ScreenAsPortal.baseURL = '/ar.js/examples/multi-markers/examples/threex-screenasportal/'</script>
+<script src="/threejs/js/loaders/DDSLoader.js"></script>
+<script src="/threejs/js/loaders/MTLLoader.js"></script>
+<script src="/threejs/js/loaders/OBJLoader.js"></script>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center;z-index:1';>
     <a href='https://github.com/jeromeetienne/AR.js/' target='_blank'>AR.js</a> - Multi marker
@@ -62,7 +65,8 @@
 
         // init renderer
         var renderer	= new THREE.WebGLRenderer({
-            alpha: true
+            alpha: true,
+        		antialias: true
         });
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -246,40 +250,81 @@
         //////////////////////////////////////////////////////////////////////////////////
 
         ;(function(){
-            var arWorldRoot = new THREE.Group()
-            var averageMatrix = THREEx.ArMultiMarkerControls.computeCenter(multiMarkerFile)
-            averageMatrix.decompose(arWorldRoot.position, arWorldRoot.quaternion, arWorldRoot.scale)
-            smoothedRoot.add(arWorldRoot)
-            // markerRoot.add(arWorldRoot)
+          var arWorldRoot = new THREE.Group()
+          var averageMatrix = THREEx.ArMultiMarkerControls.computeCenter(multiMarkerFile)
+          averageMatrix.decompose(arWorldRoot.position, arWorldRoot.quaternion, arWorldRoot.scale)
+          smoothedRoot.add(arWorldRoot)
+          // markerRoot.add(arWorldRoot)
 
 
-            // var screenAsPortal = new THREEx.ScreenAsPortal(multiMarkerFile)
-            // arWorldRoot.add(screenAsPortal.object3d)
+          // var screenAsPortal = new THREEx.ScreenAsPortal(multiMarkerFile)
+          // arWorldRoot.add(screenAsPortal.object3d)
 
-            var mesh = new THREE.AxisHelper()
-            arWorldRoot.add(mesh)
+          var mesh = new THREE.AxisHelper()
+          arWorldRoot.add(mesh)
 
-            // add a torus knot
-            var geometry	= new THREE.CubeGeometry(1,1,1);
-            var material	= new THREE.MeshNormalMaterial({
-                transparent : true,
-                opacity: 0.5,
-                side: THREE.DoubleSide
-            });
-            var mesh	= new THREE.Mesh( geometry, material );
-            mesh.position.y	= geometry.parameters.height/2
-            arWorldRoot.add(mesh)
+          // add a torus knot
+          var geometry	= new THREE.CubeGeometry(1,1,1);
+          var material	= new THREE.MeshNormalMaterial({
+            transparent : true,
+            opacity: 0.5,
+            side: THREE.DoubleSide
+          });
 
-            var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-            var material	= new THREE.MeshNormalMaterial();
-            var mesh	= new THREE.Mesh( geometry, material );
-            mesh.position.y	= 0.5
-            arWorldRoot.add( mesh );
+          var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
+          ambientLight.position.x = 2;
+              arWorldRoot.add( ambientLight );
 
-            onRenderFcts.push(function(delta){
-                mesh.rotation.x += delta * Math.PI
-            })
+          var pointLight = new THREE.PointLight( 0x888888, 0.5 );
+          arWorldRoot.add( pointLight );
+          pointLight.position.x = 5;
+          pointLight.position.y = 5;
+      pointLight.position.z = 5;
+
+
+          addProduct(1862001, arWorldRoot);
+
+          onRenderFcts.push(function(delta){
+            // mesh.rotation.x += delta * Math.PI
+          })
         })()
+
+        function addProduct(productNumber, scene){
+
+          var onProgress = function ( xhr ) {
+
+                if ( xhr.lengthComputable ) {
+
+                  var percentComplete = xhr.loaded / xhr.total * 100;
+                  console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+
+                }
+
+              };
+
+          var onError = function ( xhr ) { };
+
+          THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+
+              new THREE.MTLLoader()
+                .setPath( '/models/obj/'+productNumber+'/' )
+                .load( productNumber+'.mtl', function ( materials ) {
+
+                  materials.preload();
+
+                  new THREE.OBJLoader()
+                    .setMaterials( materials )
+                    .setPath( '/models/obj/'+productNumber+'/' )
+                    .load( productNumber+'.obj?rev=1', function ( object ) {
+
+                      object.position.y = 0;
+                      object.position.z = 0;
+                      scene.add( object );
+
+                    }, onProgress, onError );
+
+                } );
+        }
 
         //////////////////////////////////////////////////////////////////////////////////
         //		render the whole thing on the page
@@ -289,23 +334,23 @@
 
         // render the scene
         onRenderFcts.push(function(){
-            renderer.render( scene, camera );
-            stats.update();
+          renderer.render( scene, camera );
+          stats.update();
         })
 
         // run the rendering loop
         var lastTimeMsec= null
         requestAnimationFrame(function animate(nowMsec){
-            // keep looping
-            requestAnimationFrame( animate );
-            // measure time
-            lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-            var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-            lastTimeMsec	= nowMsec
-            // call each update function
-            onRenderFcts.forEach(function(onRenderFct){
-                onRenderFct(deltaMsec/1000, nowMsec/1000)
-            })
+          // keep looping
+          requestAnimationFrame( animate );
+          // measure time
+          lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
+          var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
+          lastTimeMsec	= nowMsec
+          // call each update function
+          onRenderFcts.forEach(function(onRenderFct){
+            onRenderFct(deltaMsec/1000, nowMsec/1000)
+          })
         })
-    })()
-</script></body>
+      })()
+      </script></body>
