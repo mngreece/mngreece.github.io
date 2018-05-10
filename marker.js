@@ -144,11 +144,11 @@
 
     // display THREEx.ArMarkerHelper if needed - useful to debug
     var markerHelpers = []
-    var markerToModel = {"http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt":9507387,
-    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt":9507387,
-    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt":9507387,
-    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterF.patt":1862001,
-    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt":1862001};
+    var markerToModel = {"http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt":[9507387, 'default'],
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt":[1862001, 'brown-sidetable'],
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt":[9507387, 'default'],
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterF.patt":[1862001, 'default'],
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt":[1862001, 'default']};
     console.log("test");
     multiMarkerControls.subMarkersControls.forEach(function(subMarkerControls){
         // add an helper to visuable each sub-marker
@@ -157,7 +157,11 @@
         markerHelpers.push(markerHelper)
         // subMarkerControls.object3d.add( markerHelper.object3d )
         console.log(subMarkerControls);
-        addProduct(markerToModel[subMarkerControls.parameters.patternUrl], subMarkerControls.object3d);
+        addProduct(
+          markerToModel[subMarkerControls.parameters.patternUrl][0],
+          markerToModel[subMarkerControls.parameters.patternUrl][1],
+          subMarkerControls.object3d
+        );
     })
 
     function markerHelpersToggleVisibility(){
@@ -238,7 +242,7 @@
         })
     })()
 
-    function addProduct(productNumber, scene){
+    function addProduct(productNumber, variation, scene){
 
         var onProgress = function ( xhr ) {
 
@@ -256,15 +260,15 @@
         THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
         new THREE.MTLLoader()
-            .setPath( '/models/obj/'+productNumber+'/' )
+            .setPath( '/models/obj/'+productNumber+'/'+variation+'/' )
             .load( productNumber+'.mtl', function ( materials ) {
 
                 materials.preload();
 
                 new THREE.OBJLoader()
                     .setMaterials( materials )
-                    .setPath( '/models/obj/'+productNumber+'/' )
-                    .load( productNumber+'.obj?rev=1', function ( object ) {
+                    .setPath( '/models/obj/'+productNumber+'/'+variation+'/' )
+                    .load( productNumber+'.obj', function ( object ) {
 
                         object.position.y = 0;
                         object.position.z = 0;

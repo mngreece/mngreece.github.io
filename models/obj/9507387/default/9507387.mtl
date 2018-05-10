@@ -20,7 +20,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd -o 0.000000 0.100000 0.000000 -s 1.800000 1.400000 1.000000  roca_texture_button.png
+map_Kd -o 0.000000 0.100000 0.000000 -s 1.800000 1.400000 1.000000  ../texture/roca_texture_button.png
 
 newmtl Material.002
 Ns 31.372549
