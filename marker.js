@@ -144,7 +144,11 @@
 
     // display THREEx.ArMarkerHelper if needed - useful to debug
     var markerHelpers = []
-    var markerToModel = [9507387, 1862001, 9507387, 1862001, 1862001]
+    var markerToModel = {"http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt":9507387,
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt":9507387,
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt":9507387,
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-letterF.patt":1862001,
+    "http://127.0.0.1:8080/ar.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt":1862001};
     console.log("test");
     multiMarkerControls.subMarkersControls.forEach(function(subMarkerControls){
         // add an helper to visuable each sub-marker
@@ -152,8 +156,8 @@
 
         markerHelpers.push(markerHelper)
         // subMarkerControls.object3d.add( markerHelper.object3d )
-        console.log(markerHelpers.length-1);
-        addProduct(markerToModel[markerHelpers.length-1], subMarkerControls.object3d);
+        console.log(subMarkerControls);
+        addProduct(markerToModel[subMarkerControls.parameters.patternUrl], subMarkerControls.object3d);
     })
 
     function markerHelpersToggleVisibility(){
