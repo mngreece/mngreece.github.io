@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<!-- three.js library -->
+<script src='/ar.js/examples/vendor/three.js/build/three.js'></script>
+<script src='/ar.js/examples/vendor/three.js/examples/js/libs/stats.min.js'></script>
+<!-- jsartookit -->
+<script src='/ar.js/vendor/jsartoolkit5/build/artoolkit.min.js'></script>
+<script src='/ar.js/vendor/jsartoolkit5/js/artoolkit.api.js'></script>
+<!-- aruco -->
+<script src='/ar.js/vendor/js-aruco/src/svd.js'></script>
+<script src='/ar.js/vendor/js-aruco/src/posit1.js'></script>
+<script src='/ar.js/vendor/js-aruco/src/cv.js'></script>
+<script src='/ar.js/vendor/js-aruco/src/aruco.js'></script>
+<script src='/ar.js/src/threex/threex-aruco/threex-arucocontext.js'></script>
+<script src='/ar.js/src/threex/threex-aruco/threex-arucodebug.js'></script>
+<!-- include threex.artoolkit -->
+<script src='/ar.js/src/threex/threex-artoolkitsource.js'></script>
+<script src='/ar.js/src/threex/threex-artoolkitcontext.js'></script>
+<script src='/ar.js/src/threex/threex-artoolkitprofile.js'></script>
+<script src='/ar.js/src/threex/threex-arbasecontrols.js'></script>
+<script src='/ar.js/src/threex/threex-armarkercontrols.js'></script>
+<script src='/ar.js/src/threex/threex-armarkerhelper.js'></script>
+<script src='/ar.js/src/threex/threex-arsmoothedcontrols.js'></script>
+<script>THREEx.ArToolkitContext.baseURL = '/ar.js/'</script>
+
+<script src='/ar.js/examples/multi-markers/threex-armultimarkerutils.js'></script>
+<script src='/ar.js/examples/multi-markers/threex-armultimarkercontrols.js'></script>
+<script src='/ar.js/examples/multi-markers/threex-armultimarkerlearning.js'></script>
+
+<script src='/ar.js/examples/multi-markers/examples/threex-screenasportal/threex-screenasportal.js'></script>
+<script>THREEx.ScreenAsPortal.baseURL = '/ar.js/examples/multi-markers/examples/threex-screenasportal/'</script>
+<script src="/threejs/js/loaders/DDSLoader.js"></script>
+<script src="/threejs/js/loaders/MTLLoader.js"></script>
+<script src="/threejs/js/loaders/OBJLoader.js"></script>
+
+<!-- Bootstrap 4 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+  <textarea id="harrySpeech" style="position:absolute; bottom:0px; width:100%; height:10%"></textarea>
+  <script src="harry.js"></script>
+<script src="assist.js"></script>
+
+</body>
