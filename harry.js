@@ -15,7 +15,8 @@ var arrAnimations = [
   'alert',
   'walk',
   'run',
-  'hello'
+  'hello',
+  'confident'
 ];
 var actualAnimation = 0;
 
@@ -42,7 +43,7 @@ function harryActionMap (event){
 
   nameSplit = closestObject.name.split("-");
 
-  let nameString = "Product Number: ";
+  let nameString = "Product Number:";
   nameSplit.forEach(function(m) {
     nameString += " "+m.toUpperCase();
   });
@@ -55,11 +56,11 @@ function harryActionMap (event){
   } else if (/stop/.test(lastSpeech)){
 
     speechArea.value = "Sure";
-    action.alert.play();
+    action.confident.play();
   } else if (/cost/.test(lastSpeech) || /price/.test(lastSpeech)){
 
     speechArea.value = "It would cost $ 1000\nAdd "+nameString+" to basket?";
-    action.idle.play();
+    action.walk.play();
   } else if (/sure/.test(lastSpeech) || /yes/.test(lastSpeech) || /yeah/.test(lastSpeech)){
 
     speechArea.value = nameString+" to basket!";
@@ -71,7 +72,7 @@ function harryActionMap (event){
 
 function harryLoadModel (scene) {
 
-  loader.load('/models/obj/harry/default/harry2.json', function (geometry, materials) {
+  loader.load('/models/obj/harry/default/harry3.json', function (geometry, materials) {
 	materials.forEach(function (material) {
       material.skinning = true;
     });
@@ -85,9 +86,9 @@ function harryLoadModel (scene) {
     mixer = new THREE.AnimationMixer(character);
 
     character.rotation.x = 1.5;
-    character.scale.x = 0.7;
-    character.scale.y = 0.7;
-    character.scale.z = 0.7;
+    character.scale.x = 0.5;
+    character.scale.y = 0.5;
+    character.scale.z = 0.5;
 
 
 
@@ -95,10 +96,10 @@ function harryLoadModel (scene) {
 
 	   console.log(geometry.animations.length);
 
-    action.hello = mixer.clipAction(geometry.animations[ 0 ]);
-    action.idle = mixer.clipAction(geometry.animations[ 1 ]);
-    action.run = mixer.clipAction(geometry.animations[ 2 ]);
-    action.walk = mixer.clipAction(geometry.animations[ 1 ]);
+    action.idle = mixer.clipAction(geometry.animations[ 4 ]);
+    action.hello = mixer.clipAction(geometry.animations[ 1 ]);
+    action.run = mixer.clipAction(geometry.animations[ 4 ]);
+    action.walk = mixer.clipAction(geometry.animations[ 2 ]);
 //
     action.hello.setEffectiveWeight(1);
     action.idle.setEffectiveWeight(1);
@@ -113,9 +114,15 @@ function harryLoadModel (scene) {
     action.run.enabled = true;
     action.walk.enabled = true;
 
-    action.alert = mixer.clipAction(geometry.animations[ 2 ]);
+    action.alert = mixer.clipAction(geometry.animations[ 0 ]);
     action.alert.setEffectiveWeight(1);
     action.alert.enabled = true;
+    action.alert.setLoop(THREE.LoopOnce, 0);
+    action.alert.clampWhenFinished = true;
+
+    action.confident = mixer.clipAction(geometry.animations[ 1 ]);
+    action.confident.setEffectiveWeight(1);
+    action.confident.enabled = true;
 
 
     scene.add(character);
