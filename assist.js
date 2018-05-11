@@ -1,12 +1,16 @@
 var closestObject = -1;
 
 ;(function(){
-    var markerToModel =
-        [
-            ["9507387", "default"],
-            ["1862001", 'brown-sidetable'],
-            ["1862001", 'brown-double-basin']
-        ];
+  var markerToModel =
+      [
+          ["9507387", "default"],
+          ["1862001", 'default'],
+          ["1862001", 'black-double-basin'],
+          ["1862001", 'black-sidetable'],
+          ["1862001", 'brown-double-basin'],
+          ["1862001", 'brown-sidetable'],
+          ["1862001", 'default-black']
+      ];
     //////////////////////////////////////////////////////////////////////////////////
     //		Init
     //////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +59,7 @@ var closestObject = -1;
     if( urlOptions.trackingBackend === 'artoolkit' ){
         var camera = new THREE.Camera();
     }else if( urlOptions.trackingBackend === 'aruco' ){
-        var camera = new THREE.PerspectiveCamera(42, renderer.domElement.width / renderer.domElement.height, 0.01, 100);
+        var camera = new THREE.PerspectiveCamera(42, renderer.domElement.width / renderer.domElement.height, 0.001, 10000);
     }else console.assert(false)
     scene.add(camera);
 
