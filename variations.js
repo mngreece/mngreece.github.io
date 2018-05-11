@@ -3,7 +3,11 @@
         [
             ["9507387", "default"],
             ["1862001", 'default'],
-            ["1862001", 'brown-sidetable']
+            ["1862001", 'black-double-basin'],
+            ["1862001", 'black-sidetable'],
+            ["1862001", 'brown-double-basin'],
+            ["1862001", 'brown-sidetable'],
+            ["1862001", 'default-black']
         ];
     //////////////////////////////////////////////////////////////////////////////////
     //		Init
