@@ -282,9 +282,9 @@
 
                         object.position.y = 0;
                         object.position.z = 0;
-                        object.scale.x = 0.5;
-                        object.scale.y = 0.5;
-                        object.scale.z = 0.5;
+                        object.scale.x = 3;
+                        object.scale.y = 3;
+                        object.scale.z = 3;
                         scene.add( object );
 
                     }, onProgress, onError );
